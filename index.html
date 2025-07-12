@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Tipo de Cambio SUNAT</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <!-- Preload modern font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Importa la librería SheetJS (xlsx) para la funcionalidad de exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- Meta tags para SEO y PWA -->
+    <meta name="description" content="Consulta oficial de tipos de cambio SUNAT de manera rápida y sencilla">
+    <meta name="theme-color" content="#667eea">
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Botón para cambiar entre tema claro y oscuro -->
+        <button id="themeToggleBtn" title="Cambiar tema" aria-label="Cambiar tema">🌓</button>
+
+        <header>
+            <h1>Consulta de Tipo de Cambio SUNAT</h1>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="queryType">Tipo de Consulta:</label>
+                    <select id="queryType" aria-describedby="queryType-help">
+                        <option value="day">Fecha del Día</option>
+                        <option value="range">Rango de Fechas</option>
+                        <option value="month">Mes Completo</option>
+                    </select>
+
+                    <!-- Inputs para seleccionar rango de fechas (inicialmente ocultos) -->
+                    <div id="dateRangeInputs" class="date-range-inputs" role="group" aria-labelledby="date-range-label">
+                        <div class="input-pair">
+                            <label for="fechaInicio">Fecha Inicio:</label>
+                            <input type="date" id="fechaInicio" aria-describedby="fecha-inicio-help">
+                        </div>
+                        <div class="input-pair">
+                            <label for="fechaFin">Fecha Fin:</label>
+                            <input type="date" id="fechaFin" aria-describedby="fecha-fin-help">
+                        </div>
+                    </div>
+
+                    <!-- Inputs para seleccionar año y mes (inicialmente ocultos) -->
+                    <div id="monthYearInputs" class="month-year-inputs" role="group" aria-labelledby="month-year-label">
+                        <div class="input-pair">
+                            <label for="year">Año:</label>
+                            <input type="number" id="year" placeholder="Ej: 2024" min="2000"
+                                aria-describedby="year-help">
+                        </div>
+                        <div class="input-pair">
+                            <label for="month">Mes:</label>
+                            <select id="month" aria-describedby="month-help">
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="actions-section">
+                <div class="button-group">
+                    <button id="consultarBtn" aria-describedby="consultar-help">
+                        <span>Consultar Tipo de Cambio</span>
+                    </button>
+                    <button id="limpiarBtn" class="clear" aria-describedby="limpiar-help">
+                        <span>Limpiar Resultados</span>
+                    </button>
+                    <button id="exportBtn" class="export" disabled aria-describedby="export-help">
+                        <span>Exportar a Excel</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="status-section">
+                <div id="status" role="status" aria-live="polite"></div>
+            </section>
+
+            <section class="results-section">
+                <h2>Resultados</h2>
+                <div class="table-container">
+                    <table id="resultsTable" role="table" aria-label="Resultados de tipos de cambio">
+                        <thead>
+                            <tr>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Compra</th>
+                                <th scope="col">Venta</th>
+                                <th scope="col">Moneda</th>
+                                <th scope="col">Origen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsBody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p class="subtitle">Desarrollado por: Jose Miguel Maldonado Garcia © 2025</p>
+        </footer>
+    </div>
+
+    <!-- Modal de confirmación personalizado -->
+    <div id="confirmModal" class="modal-overlay" role="dialog" aria-labelledby="modal-title"
+        aria-describedby="modal-message">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Confirmar acción</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modal-message">¿Desea Limpiar la lista?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-cancel" class="modal-btn modal-btn-secondary">
+                    <span>Cancelar</span>
+                </button>
+                <button id="modal-confirm" class="modal-btn modal-btn-primary">
+                    <span>Confirmar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuración de la aplicación (cargar antes del script principal) -->
+    <script src="/config.js"></script>
+    <!-- Enlace al archivo JavaScript que contiene la lógica de la aplicación -->
+    <script src="/js/script.js"></script>
+
+</body>
+
+</html>
