@@ -2,6 +2,10 @@
 
 Una aplicación web moderna para consultar los tipos de cambio oficiales de SUNAT de manera rápida y sencilla.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/c8ff80c0-a232-4537-93c7-c1769aab2b9b" width="80%">
+</p>
+
 ## 🚀 Características
 
 - ✅ Consulta de tipo de cambio del día actual
